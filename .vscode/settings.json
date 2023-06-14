@@ -1,4 +1,16 @@
 {
   "python.analysis.typeCheckingMode": "off",
-  "python.formatting.provider": "yapf"
+  "python.formatting.provider": "yapf",
+  "cSpell.words": [
+    "argmax",
+    "imread",
+    "keras",
+    "numpy",
+    "pydantic",
+    "venv",
+    "yapf"
+  ],
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

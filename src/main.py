@@ -29,7 +29,7 @@ def main(args: list[str]):
                   int] = json.loads(Path(app_settings.tag_file).read_text())
 
     tag_names = list(my_tags.keys())
-    tag_names.reverse()
+    # tag_names.reverse()
 
     similarities = [np.dot(prediction[0], ident) for ident in my_tags.values()]
 
