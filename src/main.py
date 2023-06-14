@@ -33,7 +33,7 @@ def main(args: list[str]):
     # percentage = (abs(number1 - number2) / ((number1 + number2) / 2)) * 100
 
     similarities = [
-        abs(prediction[0] - float(ident)) for ident in my_tags.values()
+        1 - abs(prediction[0] - float(ident)) for ident in my_tags.values()
     ]
 
     ind_max = np.argmax(similarities)
