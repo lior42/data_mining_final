@@ -30,24 +30,33 @@ def main(args: list[str]):
 
     tag_names = list(my_tags.keys())
     # tag_names.reverse()
+    # percentage = (abs(number1 - number2) / ((number1 + number2) / 2)) * 100
 
-    similarities = [np.dot(prediction[0], ident) for ident in my_tags.values()]
+    similarities = [
+        abs(prediction[0] - float(ident)) for ident in my_tags.values()
+    ]
 
-    sim_ids = np.argmax(similarities)
-
-    conf = float(similarities[sim_ids])
-    tag = ""
-
-    if conf < app_settings.coherent_prediction:
-        tag = tag_names[1 - sim_ids]
-    else:
-        tag = tag_names[sim_ids]
+    ind_max = np.argmax(similarities)
+    conf = 1 - closeness(float(similarities[ind_max]), 1.0)
 
     print(
-        f"Predicted tag:\"{tag_names[sim_ids]}\", with confident level of {conf:.3f}."
+        f"Predicted tag:\"{tag_names[ind_max]}\", with confident level of {conf:.3f}."
     )
-    print(f"Confident level is set to {app_settings.coherent_prediction:.3f}.")
-    print(f"Therefore, Final prediction is \"{tag}\".")
+
+    if conf > app_settings.coherent_prediction:
+        print(f"This is considered a strong prediction.")
+
+    # print(f"Confident level is set to {app_settings.coherent_prediction:.3f}.")
+    # print(f"Therefore, Final prediction is \"{tag}\".")
+
+
+def closeness(num1, num2):
+    avg = (num1 + num2) / 2
+    dist = abs(num1 - num2)
+
+    if avg == 0: return 1
+
+    return dist / avg
 
 
 if __name__ == '__main__':

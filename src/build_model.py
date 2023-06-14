@@ -20,13 +20,17 @@ def build_model(train, validation):
     model.add(layers.MaxPool2D())
     model.add(layers.Flatten())
     model.add(layers.Dense(256, activation="relu"))
+    model.add(layers.Dense(256, activation="relu"))
+    model.add(layers.Dense(256, activation="relu"))
+    model.add(layers.Dense(256, activation="relu"))
+    model.add(layers.Dense(256, activation="relu"))
     model.add(layers.Dense(1, activation="sigmoid"))
 
     model.compile("adam",
                   loss=tf.losses.BinaryCrossentropy(),
                   metrics=["accuracy"])
 
-    # model.summary()
+    model.summary()
 
     callback = ks.callbacks.TensorBoard(log_dir=app_settings.log_dir)
 
