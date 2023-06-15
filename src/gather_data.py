@@ -6,6 +6,7 @@ import json
 
 
 def gather_data(dir_: Path, train_size: float):
+    """Executed by `build_model.py`, will return train and validation (in that order)"""
     data_raw: Any = tf.keras.utils.image_dataset_from_directory(str(dir_))
 
     classification = dict(

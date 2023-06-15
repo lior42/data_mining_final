@@ -2,6 +2,10 @@ from pydantic import BaseSettings
 
 
 class AppSettings(BaseSettings):
+    """
+    The settings of the application as a class (auto generated instance), note that the defaults are a must.
+    used everywhere
+    """
     data_dir: str = "data"
     log_dir: str = "logs"
     save_file: str = "my_model.h5"

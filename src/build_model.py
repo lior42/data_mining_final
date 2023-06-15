@@ -1,11 +1,14 @@
-from configs import app_settings
 from pathlib import Path
-from gather_data import gather_data
-from tensorflow import keras as ks
+
 import tensorflow as tf
+from tensorflow import keras as ks
+
+from configs import app_settings
+from gather_data import gather_data
 
 
 def build_model(train, validation):
+    """This will create and save a model"""
     model = ks.models.Sequential()
     layers = ks.layers
     model.add(

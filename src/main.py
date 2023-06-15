@@ -1,15 +1,18 @@
-from configs import app_settings
+import argparse
+import json
 import sys
-from tensorflow import keras as ks
-import tensorflow as tf
+from pathlib import Path
+
 import cv2
 import numpy as np
-import argparse
-from pathlib import Path
-import json
+import tensorflow as tf
+from tensorflow import keras as ks
+
+from configs import app_settings
 
 
 def main(args: list[str]):
+    """Entry point for our program"""
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--image", required=True)
     p_args = vars(parser.parse_args(args[1:]))
@@ -25,12 +28,10 @@ def main(args: list[str]):
 
     prediction = my_model.predict(np.expand_dims(img / 255, 0))
 
-    my_tags: dict[str,
-                  int] = json.loads(Path(app_settings.tag_file).read_text())
+    my_tags: dict[str,int] = \
+        json.loads(Path(app_settings.tag_file).read_text())
 
     tag_names = list(my_tags.keys())
-    # tag_names.reverse()
-    # percentage = (abs(number1 - number2) / ((number1 + number2) / 2)) * 100
 
     similarities = [
         1 - abs(prediction[0] - float(ident)) for ident in my_tags.values()
@@ -45,9 +46,6 @@ def main(args: list[str]):
 
     if conf > app_settings.coherent_prediction:
         print(f"This is considered a strong prediction.")
-
-    # print(f"Confident level is set to {app_settings.coherent_prediction:.3f}.")
-    # print(f"Therefore, Final prediction is \"{tag}\".")
 
 
 def closeness(num1, num2):
